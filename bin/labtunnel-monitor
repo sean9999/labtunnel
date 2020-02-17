@@ -1,0 +1,5 @@
+#!/bin/bash
+
+##	stream logs
+journalctl --user --unit labtunnel\* -f
+

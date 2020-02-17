@@ -1,0 +1,6 @@
+#!/bin/bash
+
+##	turn off labtunnel and proxy settings
+
+gsettings set org.gnome.system.proxy mode 'none'
+notify-send 'labtunnel' 'proxy off'

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function boldprint() {
+	echo -e "\e[32;1m${1}\e[0m"
+}
+
+BINROOT=~/.local/opt/fukt/labtunnel/bin
+
+for  f in $BINROOT/*; do
+	boldprint "<!--	$(basename $f)	-->"
+	cat $f
+	echo
+done
