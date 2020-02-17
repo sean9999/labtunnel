@@ -22,7 +22,7 @@ heading "Sockets"
 systemctl --user list-sockets --all labtunnel\* --no-page
 systemctl --user --quiet --no-legend list-unit-files 'labtunnel*' --type socket --all --no-page
 heading "Listeners"
-systemctl --user list-units labtunnel-listener@\* --all --no-legend --no-page -n 4
+systemctl --user list-units labtunnel-listener@\* --type=service --all --no-legend --no-page -n 4
 heading "Tunnels"
 systemctl --user list-units labtunnel@\* --all --no-legend --no-page -n 4
 echo
