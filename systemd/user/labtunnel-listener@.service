@@ -1,0 +1,9 @@
+[Unit]
+After=labtunnel@%i.service
+BindsTo=labtunnel@%i.service
+
+[Service]
+#EnvironmentFile=%h/.config/systemd/user/labtunnel.env
+#ExecStartPre=mkdir -p %t/labtunnel
+#ExecStartPre=touch %t/labtunnel/.v0.1.0.%i.sock
+ExecStart=/lib/systemd/systemd-socket-proxyd %t/labtunnel/v0.1.0.%i.sock

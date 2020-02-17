@@ -1,0 +1,6 @@
+#!/bin/bash
+
+##	turn on labtunnel
+
+gsettings set org.gnome.system.proxy mode 'manual'
+notify-send 'labtunnel' 'proxy on'

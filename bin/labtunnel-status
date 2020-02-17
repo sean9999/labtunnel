@@ -1,0 +1,29 @@
+#!/bin/bash
+
+##	display the status of labtunnel-controlled SSH tunnels
+
+set -euo pipefail
+IFS=$'\n\t'
+
+function heading(){
+	local purple='\033[0;35m'
+	local nocolour='\033[0m'
+	printf "\n${purple}##	$1${nocolour}\n"
+}
+
+MODE="$(gsettings get org.gnome.system.proxy mode)"
+HOST="$(gsettings get org.gnome.system.proxy.socks host)"
+PORT="$(gsettings get org.gnome.system.proxy.socks port)"
+heading "System Proxy Settings"
+echo mode:	$MODE
+echo host:	$HOST
+echo port:	$PORT
+heading "Sockets"
+systemctl --user list-sockets --all labtunnel\* --no-page
+systemctl --user --quiet --no-legend list-unit-files 'labtunnel*' --type socket --all --no-page
+heading "Listeners"
+systemctl --user list-units labtunnel-listener@\* --all --no-legend --no-page -n 4
+heading "Tunnels"
+systemctl --user list-units labtunnel@\* --all --no-legend --no-page -n 4
+echo
+
