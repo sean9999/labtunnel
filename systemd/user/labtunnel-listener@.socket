@@ -1,6 +1,6 @@
 [Socket]
 ListenStream=127.0.0.1:1080
-#NoDelay=False
+NoDelay=True
 
 [Install]
 WantedBy=sockets.target

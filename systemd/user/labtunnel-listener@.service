@@ -1,9 +1,11 @@
 [Unit]
-After=labtunnel@%i.service
-BindsTo=labtunnel@%i.service
+Before=labtunnel@%i.service
+Wants=labtunnel@%i.service
+
+[Install]
+WantedBy=network.target
 
 [Service]
 #EnvironmentFile=%h/.config/systemd/user/labtunnel.env
-#ExecStartPre=mkdir -p %t/labtunnel
-#ExecStartPre=touch %t/labtunnel/.v0.1.0.%i.sock
+ExecStartPre=mkdir -p %t/labtunnel
 ExecStart=/lib/systemd/systemd-socket-proxyd %t/labtunnel/v0.1.0.%i.sock

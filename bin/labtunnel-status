@@ -14,13 +14,13 @@ function heading(){
 MODE="$(gsettings get org.gnome.system.proxy mode)"
 HOST="$(gsettings get org.gnome.system.proxy.socks host)"
 PORT="$(gsettings get org.gnome.system.proxy.socks port)"
-heading "System Proxy Settings"
+heading "Gnome System Proxy Settings"
 echo mode:	$MODE
 echo host:	$HOST
 echo port:	$PORT
 heading "Sockets"
-systemctl --user list-sockets --all labtunnel\* --no-page
-systemctl --user --quiet --no-legend list-unit-files 'labtunnel*' --type socket --all --no-page
+systemctl --user list-sockets --all labtunnel\* --all --no-legend --no-page
+systemctl --user --quiet --no-legend list-unit-files 'labtunnel@*' --type socket --all --no-page
 heading "Listeners"
 systemctl --user list-units labtunnel-listener@\* --type=service --all --no-legend --no-page -n 4
 heading "Tunnels"

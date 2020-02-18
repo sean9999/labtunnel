@@ -1,21 +1,20 @@
 [Unit]
 Description=Labtunnel for %i.
 Requires=labtunnel-listener@%i.socket
-#ConditionPathExists=%t/labtunnel/v0.1.0.%i.sock
+After=labtunnel-listener@%i.socket
 
 [Install]
 Also=labtunnel-listener@%i.socket
+WantedBy=network.target
 
 [Service]
-#ExecStartPre=mkdir -p %t/labtunnel
-#ExecStartPre=touch %t/labtunnel/v0.1.0.%i.sock
+ExecStartPre=mkdir -p %t/labtunnel
+ExecStartPre=touch -c %t/labtunnel/v0.1.0.%i.sock
 ExecStart=/usr/bin/ssh -CTNqv \
 	-D %t/labtunnel/v0.1.0.%i.sock \
 	-o "ExitOnForwardFailure=yes" \
 	-o "StreamLocalBindUnlink=yes" \
 	-o "NoHostAuthenticationForLocalhost=yes" \
-	-o "ServerAliveCountMax=2" \
-	-o "ServerAliveInterval=11" \
 	%i
 ExecStartPost=/usr/bin/notify-send -u low \
 	-t 3000 -i network-transmit-receive \
@@ -25,10 +24,5 @@ ExecStopPost=/usr/bin/notify-send -u low \
 	-t 3000 -i network-offline \
 	-c "network.disconnected" "%i" "labtunnel closed"
 ExecStopPost=/usr/bin/canberra-gtk-play -i service-logout
-
-Restart=on-failure
-RestartSec=3
-#StartLimitIntervalSec=1
-StartLimitBurst=3
-
+Restart=no
 

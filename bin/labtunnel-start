@@ -1,0 +1,9 @@
+#!/bin/bash
+
+##	Start the listener
+##	If anything requests traffic on the port, the tunnel will be activated.
+set -euo pipefail
+IFS=$'\n\t'
+
+systemctl --user enable --now "labtunnel-listener@$1.service"
+

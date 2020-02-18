@@ -1,0 +1,10 @@
+#!/bin/bash
+
+##	bring the tunnel down
+
+set -euo pipefail
+IFS=$'\n\t'
+
+systemctl --user disable --now labtunnel-listener@$1.socket
+systemctl --user disable --now labtunnel@$1.service
+

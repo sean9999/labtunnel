@@ -2,5 +2,29 @@
 
 ##	turn on labtunnel
 
-gsettings set org.gnome.system.proxy mode 'manual'
-notify-send 'labtunnel' 'proxy on'
+##	@todo: don't assume 127.0.0.1. Instead read the value from labtunnel as we do with $PORT
+##	@todo: don't assume Gnome. Have an nmcli option, at least
+
+LISTENS="$(systemctl --user show labtunnel-listener@\*.socket --state=active --no-page --no-legend -p Listen --value)"
+
+if [[ $(echo "$LISTENS" | wc -l) != "1" ]]; then
+	echo "I can't automatically set the System Proxy settings, because there are more than one labtunnel running"
+	echo "$LISTENS"
+	notify-send -i dialog-warning "Labtunnel" "There are more than one labtunnels running. But proxy has been set"
+	gsettings set org.gnome.system.proxy mode 'manual'
+else
+	if [[ "$LISTENS" = "" ]]; then
+		echo 'There are no labtunnels running'
+		notify-send -i dialog-error "Labtunnel" "There are no labtunnels running"
+	else
+		HOST="127.0.0.1"
+		PORT="$(echo "$LISTENS" | grep -E -o ':[[:digit:]]+' | grep -E -o '[[:digit:]]+')"
+		gsettings set org.gnome.system.proxy mode 'manual'
+		gsettings set org.gnome.system.proxy.socks host "$HOST"
+		gsettings set org.gnome.system.proxy.socks port "$PORT"
+		notify-send -i dialog-information "Labtunnel" "Proxy activated on :$PORT"
+		echo "HOST	$HOST"
+		echo "PORT	$PORT"
+	fi
+fi
+
