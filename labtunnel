@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BINBASE=~/.local/opt/fukt/labtunnel/bin
+APP_ROOT="$HOME/.local/opt/labtunnel"
 SUBCOMMAND=${1-help}
 shift
-$BINBASE/labtunnel-$SUBCOMMAND $@
+$APP_ROOT/bin/labtunnel-$SUBCOMMAND $@

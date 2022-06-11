@@ -1,6 +1,36 @@
 # LabTunnel
 
-Labtunnel uses systemd and ssh to make managing SOCKS5 proxies easy.
+Labtunnel uses systemd and ssh to make managing SOCKS5 proxies easy. It is based on a [project by the same name](https://github.com/renxida/labtunnel), which in turn is based on [another project](https://gist.github.com/drmalex07/c0f9304deea566842490). It is indended for Linux workstations using the Gnome Desktop Environment. But it could easily be modified to work with other DEs.
 
-For installating see [INSTALL.md](./INSTALL.md)
+##	Installation
+
+do `$ sudo make install`. You will then have a utility called `labtunnel` which will make use of code that has been installed to `~/.local/opt/labtunnel`.
+
+##	Getting Started
+
+First off, you'll want to make sure you have at least one server you can connect to securely using SSH without passwords. You may have an `~/.ssh/config` file that looks like this:
+
+```
+bastion1
+	HostName ec2-12-34-56-78.us-west-2.compute.amazonaws.com
+	User bob
+	IdentityFile ~/.ssh/id_rsa
+
+bastion2
+    HostName ec2-12-34-56-78.us-east-2.compute.amazonaws.com
+    User alice
+    IdentityFile ~/.ssh/id_rsa
+```
+
+where bastion1 and bastion2 are servers you want available as SOCKS5 proxies.
+
+```
+$ labtunnel enable bastion1 # to enable
+$ labtunnel start bastion1 # to start the tunnel
+$ labtunnel on # to tell your desktop environment that you want all network traffic to use that tunnel
+$ labtunnel help # to see more options
+```
+
+
+
 
