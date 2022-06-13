@@ -7,5 +7,5 @@ IFS=$'\n\t'
 
 systemctl --user disable --now labtunnel-listener@$1.service
 systemctl --user disable --now labtunnel-listener@$1.socket
-systemctl --user disable --now labtunnel@$1.service
+systemctl --user --quiet stop labtunnel@$1.service
 

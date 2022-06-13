@@ -8,7 +8,7 @@
 LISTENS="$(systemctl --user show labtunnel-listener@\*.socket --state=active --no-page --no-legend -p Listen --value)"
 
 if [[ $(echo "$LISTENS" | wc -l) != "1" ]]; then
-	echo "I can't automatically set the System Proxy settings, because there are more than one labtunnel running"
+	echo "I can't automatically set the System Proxy settings, because there are more than one tunnels running"
 	echo "$LISTENS"
 	notify-send -i dialog-warning "Labtunnel" "There are more than one labtunnels running. But proxy has been set"
 	gsettings set org.gnome.system.proxy mode 'manual'

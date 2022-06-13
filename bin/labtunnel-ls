@@ -1,0 +1,11 @@
+#!/bin/bash
+
+##	list all labtunnel files in ~/.config/systemd/user/	
+
+set -euo pipefail
+IFS=$'\n\t'
+
+systemctl --user list-unit-files 'labtunnel*'
+echo
+ls ~/.config/systemd/user/*labtunnel*
+

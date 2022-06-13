@@ -1,6 +1,5 @@
 #!/bin/bash
 
-APP_ROOT="$HOME/.local/opt/labtunnel"
 SUBCOMMAND=${1-help}
 shift
 $APP_ROOT/bin/labtunnel-$SUBCOMMAND $@
